@@ -54,7 +54,7 @@ class Module extends \yii\base\Module
     {
         parent::init();
 
-        if (Yii::$app instanceof \yii\web\Controller) {
+        if (Yii::$app instanceof \yii\web\Application) {
             $this->domainRedirects = Redirect::findAll(['type' => self::TYPE_DOMAIN]);
             $this->pathRedirects   = Redirect::findAll(['type' => self::TYPE_PATH]);
 
