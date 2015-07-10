@@ -63,11 +63,11 @@ class Redirect extends \dmstr\modules\redirect\models\ActiveRecord
     
     /**
      * @inheritdoc
-     * @return \app\models\query\RedirectQuery the active query used by this AR class.
+     * @return \dmstr\modules\redirect\models\query\RedirectQuery the active query used by this AR class.
      */
     public static function find()
     {
-        return new \app\models\query\RedirectQuery(get_called_class());
+        return new \dmstr\modules\redirect\models\query\RedirectQuery(get_called_class());
     }
 
     
