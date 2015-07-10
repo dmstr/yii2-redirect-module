@@ -9,6 +9,7 @@
 namespace dmstr\modules\redirect;
 
 use dmstr\modules\redirect\models\Redirect;
+use Yii;
 use yii\helpers\Url;
 
 class Module extends \yii\base\Module
@@ -53,22 +54,24 @@ class Module extends \yii\base\Module
     {
         parent::init();
 
-        $this->domainRedirects = Redirect::findAll(['type' => self::TYPE_DOMAIN]);
-        $this->pathRedirects   = Redirect::findAll(['type' => self::TYPE_PATH]);
+        if (Yii::$app instanceof \yii\web\Controller) {
+            $this->domainRedirects = Redirect::findAll(['type' => self::TYPE_DOMAIN]);
+            $this->pathRedirects   = Redirect::findAll(['type' => self::TYPE_PATH]);
 
-        // Domain redirect
-        foreach ($this->domainRedirects as $domain) {
+            // Domain redirect
+            foreach ($this->domainRedirects as $domain) {
 
-            if (\Yii::$app->request->hostInfo == $domain->from_domain) {
-                self::doRedirectDomain($domain->to_domain);
+                if (\Yii::$app->request->hostInfo == $domain->from_domain) {
+                    self::doRedirectDomain($domain->to_domain);
+                }
             }
-        }
 
-        // Path redirect
-        foreach ($this->pathRedirects as $path) {
+            // Path redirect
+            foreach ($this->pathRedirects as $path) {
 
-            if ('/' . \Yii::$app->request->pathInfo == $path->from_path) {
-                self::doRedirectPath($path->to_path);
+                if ('/' . \Yii::$app->request->pathInfo == $path->from_path) {
+                    self::doRedirectPath($path->to_path);
+                }
             }
         }
     }
