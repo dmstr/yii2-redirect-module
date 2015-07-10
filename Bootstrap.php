@@ -26,8 +26,15 @@ class Bootstrap implements BootstrapInterface
      */
     public function bootstrap($app)
     {
-        if (!\Yii::$app->hasModule('redirect')) {
-            $app->setModule('redirect', ['class' => Module::className()]);
+        if (!\Yii::$app->hasModule('redirects')) {
+
+            $app->setModule(
+                'redirects',
+                [
+                    'class'  => Module::className(),
+                    'layout' => '@admin-views/layouts/main',
+                ]
+            );
         }
 
         $app->params['yii.migrations'][] = '@dmstr/modules/redirect/migrations';
