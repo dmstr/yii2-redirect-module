@@ -17,6 +17,12 @@ class Module extends \yii\base\Module
     public $controllerNamespace = '\dmstr\modules\redirect\controllers';
 
     /**
+     * Redirect controller as default route
+     * @var string
+     */
+    public $defaultRoute = 'redirect';
+
+    /**
      * Crud message catalogue for \Yii::t()
      * @var string
      */

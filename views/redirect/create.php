@@ -3,11 +3,11 @@
 use yii\helpers\Html;
 
 /**
-* @var yii\web\View $this
-* @var dmstr\modules\redirect\models\Redirect $model
-*/
+ * @var yii\web\View $this
+ * @var dmstr\modules\redirect\models\Redirect $model
+ */
 
-$this->title = Yii::t('app', 'Create');
+$this->title                   = Yii::t('app', 'Create');
 $this->params['breadcrumbs'][] = ['label' => 'Redirects', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -16,10 +16,14 @@ $this->params['breadcrumbs'][] = $this->title;
     <p class="pull-left">
         <?= Html::a(Yii::t('app', 'Cancel'), \yii\helpers\Url::previous(), ['class' => 'btn btn-default']) ?>
     </p>
+
     <div class="clearfix"></div>
 
-    <?= $this->render('_form', [
-    'model' => $model,
-    ]); ?>
+    <?= $this->render(
+        '_form',
+        [
+            'model' => $model,
+        ]
+    ); ?>
 
 </div>

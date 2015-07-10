@@ -15,11 +15,18 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Edit');
 <div class="giiant-crud redirect-update">
 
     <p>
-        <?= Html::a('<span class="glyphicon glyphicon-eye-open"></span> ' . Yii::t('app', 'View'), ['view', 'id' => $model->id], ['class' => 'btn btn-info']) ?>
+        <?= Html::a(
+            '<span class="glyphicon glyphicon-eye-open"></span> ' . Yii::t('app', 'View'),
+            ['view', 'id' => $model->id],
+            ['class' => 'btn btn-info']
+        ) ?>
     </p>
 
-	<?php echo $this->render('_form', [
-		'model' => $model,
-	]); ?>
+    <?php echo $this->render(
+        '_form',
+        [
+            'model' => $model,
+        ]
+    ); ?>
 
 </div>
