@@ -1,5 +1,5 @@
 {
-  "name": "dmstr/yii2-redirect",
+  "name": "dmstr/yii2-redirect-module",
   "description": "URL redirect manager",
   "type": "yii2-extension",
   "keywords": [
