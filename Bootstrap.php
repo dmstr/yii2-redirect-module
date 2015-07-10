@@ -35,6 +35,7 @@ class Bootstrap implements BootstrapInterface
                     'layout' => '@admin-views/layouts/main',
                 ]
             );
+            $app->bootstrap[] = 'redirects';
         }
 
         $app->params['yii.migrations'][] = '@dmstr/modules/redirect/migrations';
