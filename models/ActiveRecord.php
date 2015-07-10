@@ -44,8 +44,8 @@ class ActiveRecord extends \yii\db\ActiveRecord
     public function optsStatusCode()
     {
         return [
-            301,
-            302
+            301 => 301,
+            302 => 302
         ];
     }
 } 
