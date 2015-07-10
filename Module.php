@@ -8,6 +8,9 @@
  */
 namespace dmstr\modules\redirect;
 
+use dmstr\modules\redirect\models\Redirect;
+use yii\helpers\Url;
+
 class Module extends \yii\base\Module
 {
     /**
@@ -21,13 +24,27 @@ class Module extends \yii\base\Module
      * @var string
      */
     public $defaultRoute = 'redirect';
-
     /**
      * Crud message catalogue for \Yii::t()
      * @var string
      */
     public $messageCatalogue = 'dmstr';
 
+    /**
+     * @var array
+     */
+    private $domainRedirects = [];
+
+    /**
+     * @var array
+     */
+    private $pathRedirects = [];
+
+    /**
+     * Redirect types
+     */
+    const TYPE_DOMAIN = 'domain';
+    const TYPE_PATH = 'path';
 
     /**
      * @inheritdoc
@@ -36,6 +53,44 @@ class Module extends \yii\base\Module
     {
         parent::init();
 
-        // custom initialization code goes here
+        $this->domainRedirects = Redirect::findAll(['type' => self::TYPE_DOMAIN]);
+        $this->pathRedirects   = Redirect::findAll(['type' => self::TYPE_PATH]);
+
+        // Domain redirect
+        foreach ($this->domainRedirects as $domain) {
+
+            if (\Yii::$app->request->hostInfo == $domain->from_domain) {
+                self::doRedirectDomain($domain->to_domain);
+            }
+        }
+
+        // Path redirect
+        foreach ($this->pathRedirects as $path) {
+
+            if ('/' . \Yii::$app->request->pathInfo == $path->from_path) {
+                self::doRedirectPath($path->to_path);
+            }
+        }
+    }
+
+    /**
+     * @param $to
+     */
+    protected function doRedirectDomain($to)
+    {
+        header('Location: ' . $to, true, 301);
+        exit;
+    }
+
+    /**
+     * @param $to
+     */
+    protected function doRedirectPath($to)
+    {
+        $host = \Yii::$app->request->getHostInfo();
+        $url  = Url::to([$to]);
+
+        header('Location: ' . $host . $url, true, 301);
+        exit;
     }
 }
