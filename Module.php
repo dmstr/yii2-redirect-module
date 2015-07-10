@@ -4,7 +4,9 @@ namespace dmstr\modules\redirect;
 
 class Module extends \yii\base\Module
 {
-    public $controllerNamespace = 'vendor\dmstr\modules\redirect\controllers';
+    public $controllerNamespace = '\dmstr\modules\redirect\controllers';
+
+    public $layout = '@admin-views/layouts/main';
 
     public function init()
     {

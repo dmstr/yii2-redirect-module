@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\redirect\controllers;
+namespace dmstr\modules\redirect\controllers;
 
 use yii\web\Controller;
 
