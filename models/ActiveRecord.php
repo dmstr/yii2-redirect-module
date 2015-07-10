@@ -9,6 +9,7 @@
 
 namespace dmstr\modules\redirect\models;
 
+use dmstr\modules\redirect\Module;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
@@ -35,9 +36,10 @@ class ActiveRecord extends \yii\db\ActiveRecord
 
     public function optsType()
     {
+        $catalogue = \Yii::$app->getModule('redirect')->messageCatalogue;
         return [
-            'domain' => \Yii::t(\Yii::$app->getModule('redirect')->messageCatalogue, 'Domain redirect'),
-            'path'   => \Yii::t(\Yii::$app->getModule('redirect')->messageCatalogue, 'Path redirect'),
+            Module::TYPE_DOMAIN => \Yii::t($catalogue, 'Domain redirect'),
+            Module::TYPE_PATH   => \Yii::t($catalogue, 'Path redirect'),
         ];
     }
 
