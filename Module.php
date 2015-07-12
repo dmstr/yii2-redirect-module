@@ -70,7 +70,7 @@ class Module extends \yii\base\Module
             foreach ($this->pathRedirects as $path) {
 
                 if ('/' . \Yii::$app->request->pathInfo == $path->from_path) {
-                    self::doRedirectPath($path->to_path, $domain->status_code);
+                    self::doRedirectPath($path->to_path, $path->status_code);
                 }
             }
         }
