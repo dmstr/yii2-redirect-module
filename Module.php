@@ -62,7 +62,7 @@ class Module extends \yii\base\Module
             foreach ($this->domainRedirects as $domain) {
 
                 if (\Yii::$app->request->hostInfo == $domain->from_domain) {
-                    self::doRedirectDomain($domain->to_domain);
+                    self::doRedirectDomain($domain->to_domain, $domain->status_code);
                 }
             }
 
@@ -70,7 +70,7 @@ class Module extends \yii\base\Module
             foreach ($this->pathRedirects as $path) {
 
                 if ('/' . \Yii::$app->request->pathInfo == $path->from_path) {
-                    self::doRedirectPath($path->to_path);
+                    self::doRedirectPath($path->to_path, $domain->status_code);
                 }
             }
         }
@@ -79,21 +79,21 @@ class Module extends \yii\base\Module
     /**
      * @param $to
      */
-    protected function doRedirectDomain($to)
+    protected function doRedirectDomain($to, $statusCode)
     {
-        header('Location: ' . $to, true, 301);
+        header('Location: ' . $to, true, $statusCode);
         exit;
     }
 
     /**
      * @param $to
      */
-    protected function doRedirectPath($to)
+    protected function doRedirectPath($to, $statusCode)
     {
         $host = \Yii::$app->request->getHostInfo();
         $url  = Url::to([$to]);
 
-        header('Location: ' . $host . $url, true, 301);
+        header('Location: ' . $host . $url, true, $statusCode);
         exit;
     }
 }
