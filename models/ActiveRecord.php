@@ -34,7 +34,7 @@ class ActiveRecord extends \yii\db\ActiveRecord
         ];
     }
 
-    public function optsType()
+    public static function optsType()
     {
         $catalogue = \Yii::$app->getModule('redirect')->messageCatalogue;
         return [
@@ -43,7 +43,7 @@ class ActiveRecord extends \yii\db\ActiveRecord
         ];
     }
 
-    public function optsStatusCode()
+    public static function optsStatusCode()
     {
         return [
             301 => 301,
