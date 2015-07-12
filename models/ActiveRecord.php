@@ -36,7 +36,7 @@ class ActiveRecord extends \yii\db\ActiveRecord
 
     public static function optsType()
     {
-        $catalogue = \Yii::$app->getModule('redirect')->messageCatalogue;
+        $catalogue = \Yii::$app->getModule('redirects')->messageCatalogue;
         return [
             Module::TYPE_DOMAIN => \Yii::t($catalogue, 'Domain redirect'),
             Module::TYPE_PATH   => \Yii::t($catalogue, 'Path redirect'),
