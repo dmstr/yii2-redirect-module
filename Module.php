@@ -18,7 +18,7 @@ class Module extends \yii\base\Module
      * Controller namespace
      * @var string
      */
-    public $controllerNamespace = '\dmstr\modules\redirect\controllers';
+    public $controllerNamespace = 'dmstr\modules\redirect\controllers';
 
     /**
      * Redirect controller as default route
