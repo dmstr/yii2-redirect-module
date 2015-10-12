@@ -29,7 +29,7 @@ class Module extends \yii\base\Module
      * Crud message catalogue for \Yii::t()
      * @var string
      */
-    public $messageCatalogue = 'dmstr';
+    public $messageCatalogue = 'app';
 
     /**
      * @var array
