@@ -8,6 +8,6 @@ docker-compose --x-networking rm -fv
 docker-compose --x-networking up -d & wait
 docker-compose --x-networking ps
 
-docker-compose --x-networking run php sh /app/src/run.sh
+docker-compose --x-networking run php sh /app/src/setup.sh
 
 docker-compose --x-networking run php codecept run -c /app/vendor/dmstr/yii2-redirect-module/codeception.yml
