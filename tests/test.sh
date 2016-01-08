@@ -2,9 +2,8 @@
 
 export COMPOSE_PROJECT_NAME=${COMPOSE_PROJECT_NAME:-testredirect}
 
-#docker-compose --x-networking pull
+docker-compose --x-networking pull
 
-docker-compose --x-networking rm -fv
 docker-compose --x-networking up -d & wait
 docker-compose --x-networking ps
 
