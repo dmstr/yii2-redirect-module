@@ -1,7 +1,7 @@
 Yii2 - Redirect module
 ======================
 
-Bootstrapped Module to easy handle domain or path redirects from your backend
+Module to easy handle domain or path redirects from your backend
 
 Simply install via composer and go to `http://my-domain.de/redirects` to manage redirects.
 
