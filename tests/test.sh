@@ -9,5 +9,5 @@ docker-compose --x-networking ps
 
 docker-compose --x-networking run php sh /app/src/run.sh
 
-docker-compose --x-networking run php codecept build
+#docker-compose --x-networking run php codecept build
 docker-compose --x-networking run php codecept run -c /app/vendor/dmstr/yii2-redirect-module/codeception.yml
