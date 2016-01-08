@@ -15,7 +15,7 @@ test:
         - docker network rm $COMPOSE_PROJECT_NAME
         - exit $TESTS_EXIT_CODE
     stage: test
-     artifacts:
+    artifacts:
         paths:
           - ${CI_APP_VOLUME}/tests/_output
 
