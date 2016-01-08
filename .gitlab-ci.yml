@@ -1,0 +1,20 @@
+before_script:
+    - export CI_APP_VOLUME=$CI_PROJECT_DIR
+    - export COMPOSE_PROJECT_NAME=testredirect
+    - export
+
+test:
+    script:
+        - mv tests/docker-compose.ci.override.yml tests/docker-compose.override.yml
+        - cd tests
+        - set +e
+        - sh test.sh; export TESTS_EXIT_CODE=$?
+        - set -e
+        - docker-compose --x-networking kill && docker-compose --x-networking rm -fv
+        - wait
+        - docker network rm $COMPOSE_PROJECT_NAME
+        - exit $TESTS_EXIT_CODE
+    stage: test
+     artifacts:
+        paths:
+          - ${CI_APP_VOLUME}/tests/_output
