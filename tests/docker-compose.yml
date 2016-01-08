@@ -1,5 +1,5 @@
 php:
-  command: 'sh -c "sh /app/src/init.sh; php-fpm"'
+  command: 'sh -c "sh /app/src/run.sh; php-fpm"'
   image: phundament/app:latest
   environment:
     APP_NAME: redirects-testing

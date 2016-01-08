@@ -1,7 +1,6 @@
 <?php
 use tests\_pages\LoginPage;
-
-$I = new AcceptanceTester($scenario);
+$I = new \AcceptanceTester($scenario);
 $I->wantTo('ensure that redirect module is working');
 
 $loginPage = LoginPage::openBy($I);
