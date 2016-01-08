@@ -17,5 +17,5 @@ test:
     stage: test
     artifacts:
         paths:
-          - ${CI_APP_VOLUME}/vendor/dmstr/yii2-redirect-module/tests/_output
+          - ${CI_APP_VOLUME}/tests/_output
 
