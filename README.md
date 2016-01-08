@@ -17,7 +17,6 @@ To Path: `/de/press-3.html`
 Status Code: `301 or 302`
 
 
-
 ## Domain redirects
 
 **Example**
