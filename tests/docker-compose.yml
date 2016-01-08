@@ -5,7 +5,7 @@ php:
     APP_NAME: redirects-testing
     APP_TITLE: 'dmstr/yii2-redirect-module TESTING'
     YII_ENV: 'test'
-    DB_PORT_3306_TCP_ADDR: testredirects_mariadb_1
+    DB_PORT_3306_TCP_ADDR: testredirect_mariadb_1
     DB_PORT_3306_TCP_PORT: 3306
     DB_ENV_MYSQL_ROOT_PASSWORD: secretadmin
   volumes:

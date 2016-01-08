@@ -11,8 +11,8 @@ modules:
         - AcceptanceHelper
     config:
         WebDriver:
-            host: testredirects_seleniumfirefox_1
-            url: http://testredirects_nginx_1:80/
+            host: testredirect_seleniumfirefox_1
+            url: http://testredirect_nginx_1:80/
             browser: firefox
             port: 4444
             window_size: 1024x768
@@ -23,7 +23,7 @@ env:
             config:
                 WebDriver:
                     browser: 'chrome'
-                    host: testredirects_seleniumchrome_1
+                    host: testredirect_seleniumchrome_1
                     window_size: 1280x720
     firefox:
         # nothing changed
