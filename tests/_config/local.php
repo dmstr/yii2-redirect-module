@@ -7,9 +7,9 @@ return [
         '@tests' => '@vendor/dmstr/yii2-redirect-module/tests'
     ],
     'components' => [
-        'db' => [
-            'tablePrefix' => '',
-        ],
+        /*'db' => [
+            'tablePrefix' => 'app_',
+        ],*/
     ],
     'modules' => [
         'redirects' => [

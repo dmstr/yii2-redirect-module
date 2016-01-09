@@ -29,7 +29,7 @@ mariadb:
     MARIADB_PASS: secretadmin
 
 seleniumfirefox:
-  image: 'selenium/standalone-firefox-debug:2.48.2'
+  image: 'selenium/standalone-firefox-debug:2.47.1'
   expose:
       - '4444'
   ports:

@@ -23,7 +23,7 @@ env:
             config:
                 WebDriver:
                     browser: 'chrome'
-                    host: testredirect_seleniumchrome_1
+                    host: testredirects_seleniumchrome_1
                     window_size: 1280x720
     firefox:
         # nothing changed
