@@ -78,6 +78,7 @@ class Module extends \yii\base\Module
 
     /**
      * @param $to
+     * @param $statusCode
      */
     protected function doRedirectDomain($to, $statusCode)
     {
@@ -87,13 +88,13 @@ class Module extends \yii\base\Module
 
     /**
      * @param $to
+     * @param $statusCode
      */
     protected function doRedirectPath($to, $statusCode)
     {
-        $host = \Yii::$app->request->getHostInfo();
-        $url  = Url::to([$to]);
+        $url  = Url::to($to);
 
-        header('Location: ' . $host . $url, true, $statusCode);
+        header('Location: ' . $url, true, $statusCode);
         exit;
     }
 }
