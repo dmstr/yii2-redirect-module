@@ -5,6 +5,7 @@ Module to easy handle domain or path redirects from your backend
 
 Simply install via composer and go to `http://my-domain.de/redirects` to manage redirects.
 
+> Note: This module does not redirect in `YII_ENV_TEST`, eg. for functional testing. 
 
 ## Path redirects
 
