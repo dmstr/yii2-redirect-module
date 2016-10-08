@@ -51,7 +51,8 @@ class Module extends \yii\base\Module
     {
         parent::init();
 
-        if (!YII_ENV_TEST && Yii::$app instanceof \yii\web\Application) {
+        // check if we are NOT in a cli process, otherwise it's not possible to determine the $app->request reliably
+        if (php_sapi_name() !== 'cli' && Yii::$app instanceof \yii\web\Application) {
 
             $this->domainRedirects = Redirect::findAll(['type' => self::TYPE_DOMAIN]);
             $this->pathRedirects = Redirect::findAll(['type' => self::TYPE_PATH]);
