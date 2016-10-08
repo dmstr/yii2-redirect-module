@@ -11,15 +11,20 @@ namespace dmstr\modules\redirect;
 use dmstr\modules\redirect\models\Redirect;
 use Yii;
 use yii\helpers\Url;
+use yii\web\HttpException;
 
 class Module extends \yii\base\Module
 {
+    /**
+     * Redirect types
+     */
+    const TYPE_DOMAIN = 'domain';
+    const TYPE_PATH = 'path';
     /**
      * Controller namespace
      * @var string
      */
     public $controllerNamespace = 'dmstr\modules\redirect\controllers';
-
     /**
      * Redirect controller as default route
      * @var string
@@ -30,22 +35,14 @@ class Module extends \yii\base\Module
      * @var string
      */
     public $messageCatalogue = 'app';
-
     /**
      * @var array
      */
     private $domainRedirects = [];
-
     /**
      * @var array
      */
     private $pathRedirects = [];
-
-    /**
-     * Redirect types
-     */
-    const TYPE_DOMAIN = 'domain';
-    const TYPE_PATH = 'path';
 
     /**
      * @inheritdoc
@@ -54,10 +51,10 @@ class Module extends \yii\base\Module
     {
         parent::init();
 
-        if (Yii::$app instanceof \yii\web\Application) {
+        if (!YII_ENV_TEST && Yii::$app instanceof \yii\web\Application) {
 
             $this->domainRedirects = Redirect::findAll(['type' => self::TYPE_DOMAIN]);
-            $this->pathRedirects   = Redirect::findAll(['type' => self::TYPE_PATH]);
+            $this->pathRedirects = Redirect::findAll(['type' => self::TYPE_PATH]);
 
             // Domain redirect
             foreach ($this->domainRedirects as $domain) {
@@ -69,8 +66,7 @@ class Module extends \yii\base\Module
 
             // Path redirect
             foreach ($this->pathRedirects as $path) {
-
-                if ('/' . \Yii::$app->request->pathInfo == $path->from_path) {
+                if ('/'.\Yii::$app->request->pathInfo == $path->from_path) {
                     self::doRedirectPath($path->to_path, $path->status_code);
                 }
             }
@@ -83,7 +79,7 @@ class Module extends \yii\base\Module
      */
     protected function doRedirectDomain($to, $statusCode)
     {
-        header('Location: ' . $to, true, $statusCode);
+        header('Location: '.$to, true, $statusCode);
         exit;
     }
 
@@ -93,9 +89,9 @@ class Module extends \yii\base\Module
      */
     protected function doRedirectPath($to, $statusCode)
     {
-        $url  = Url::to($to);
+        $url = Url::to($to);
 
-        header('Location: ' . $url, true, $statusCode);
+        header('Location: '.$url, true, $statusCode);
         exit;
     }
 }
