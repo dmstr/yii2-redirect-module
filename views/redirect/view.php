@@ -15,15 +15,15 @@ use dmstr\bootstrap\Tabs;
 $this->title = 'Redirect ' . $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Redirects', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => (string)$model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'View');
+$this->params['breadcrumbs'][] = Yii::t('redirect', 'View');
 ?>
 <div class="giiant-crud redirect-view">
 
     <!-- menu buttons -->
     <p class='pull-left'>
-        <?= Html::a('<span class="glyphicon glyphicon-pencil"></span> ' . Yii::t('app', 'Edit'), ['update', 'id' => $model->id],['class' => 'btn btn-info']) ?>
-        <?= Html::a('<span class="glyphicon glyphicon-plus"></span> ' . Yii::t('app', 'New'), ['create'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a('<span class="glyphicon glyphicon-list"></span> ' . Yii::t('app', 'List Redirects'), ['index'], ['class'=>'btn btn-default']) ?>
+        <?= Html::a('<span class="glyphicon glyphicon-pencil"></span> ' . Yii::t('redirect', 'Edit'), ['update', 'id' => $model->id],['class' => 'btn btn-info']) ?>
+        <?= Html::a('<span class="glyphicon glyphicon-plus"></span> ' . Yii::t('redirect', 'New'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('<span class="glyphicon glyphicon-list"></span> ' . Yii::t('redirect', 'List Redirects'), ['index'], ['class'=>'btn btn-default']) ?>
     </p>
 
     <div class="clearfix"></div>
@@ -66,10 +66,10 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'View');
 
     <hr/>
 
-    <?= Html::a('<span class="glyphicon glyphicon-trash"></span> ' . Yii::t('app', 'Delete'), ['delete', 'id' => $model->id],
+    <?= Html::a('<span class="glyphicon glyphicon-trash"></span> ' . Yii::t('redirect', 'Delete'), ['delete', 'id' => $model->id],
     [
     'class' => 'btn btn-danger',
-    'data-confirm' => '' . Yii::t('app', 'Are you sure to delete this item?') . '',
+    'data-confirm' => '' . Yii::t('redirect', 'Are you sure to delete this item?') . '',
     'data-method' => 'post',
     ]); ?>
     <?php $this->endBlock(); ?>

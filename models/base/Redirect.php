@@ -48,15 +48,15 @@ class Redirect extends \dmstr\modules\redirect\models\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'type' => Yii::t('app', 'Type'),
-            'from_domain' => Yii::t('app', 'From Domain'),
-            'to_domain' => Yii::t('app', 'To Domain'),
-            'from_path' => Yii::t('app', 'From Path'),
-            'to_path' => Yii::t('app', 'To Path'),
-            'status_code' => Yii::t('app', 'Status Code'),
-            'created_at' => Yii::t('app', 'Created At'),
-            'updated_at' => Yii::t('app', 'Updated At'),
+            'id' => Yii::t('redirect', 'ID'),
+            'type' => Yii::t('redirect', 'Type'),
+            'from_domain' => Yii::t('redirect', 'From Domain'),
+            'to_domain' => Yii::t('redirect', 'To Domain'),
+            'from_path' => Yii::t('redirect', 'From Path'),
+            'to_path' => Yii::t('redirect', 'To Path'),
+            'status_code' => Yii::t('redirect', 'Status Code'),
+            'created_at' => Yii::t('redirect', 'Created At'),
+            'updated_at' => Yii::t('redirect', 'Updated At'),
         ];
     }
 

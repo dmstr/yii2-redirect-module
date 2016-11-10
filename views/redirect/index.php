@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="clearfix">
         <p class="pull-left">
-            <?= Html::a('<span class="glyphicon glyphicon-plus"></span> ' . Yii::t('app', 'New'), ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a('<span class="glyphicon glyphicon-plus"></span> ' . Yii::t('redirect', 'New'), ['create'], ['class' => 'btn btn-success']) ?>
         </p>
 
         <div class="pull-right">
@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 [
                     'id'       => 'giiant-relations',
                     'encodeLabel' => false,
-                    'label'    => '<span class="glyphicon glyphicon-paperclip"></span> ' . Yii::t('app', 'Relations'),
+                    'label'    => '<span class="glyphicon glyphicon-paperclip"></span> ' . Yii::t('redirect', 'Relations'),
                     'dropdown' => [
                         'options'      => [
                             'class' => 'dropdown-menu-right'
@@ -62,8 +62,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'dataProvider' => $dataProvider,
                 'pager'        => [
                     'class'          => yii\widgets\LinkPager::className(),
-                    'firstPageLabel' => Yii::t('app', 'First'),
-                    'lastPageLabel'  => Yii::t('app', 'Last')                ],
+                    'firstPageLabel' => Yii::t('redirect', 'First'),
+                    'lastPageLabel'  => Yii::t('redirect', 'Last')                ],
                 'filterModel' => $searchModel,
                 'tableOptions' => ['class' => 'table table-striped table-bordered table-hover'],
                 'headerRowOptions' => ['class'=>'x'],
