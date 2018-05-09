@@ -16,9 +16,14 @@ use yii\base\BootstrapInterface;
  * Class Bootstrap
  * @package dmstr/yii2-redirect
  * @author Christopher Stebe <c.stebe@herzogkommunikation.de>
+ * @author Elias Luhr <e.luhr@herzogkommunikation.de>
+ *
+ * @property string $layout
  */
 class Bootstrap implements BootstrapInterface
 {
+    public $layout = '@admin-views/layouts/main';
+
     /**
      * Bootstrap method to be called during application bootstrap stage.
      *
@@ -31,8 +36,8 @@ class Bootstrap implements BootstrapInterface
             $app->setModule(
                 'redirects',
                 [
-                    'class'  => Module::className(),
-                    'layout' => '@admin-views/layouts/main',
+                    'class'  => Module::class,
+                    'layout' => $this->layout,
                 ]
             );
             $app->bootstrap[] = 'redirects';

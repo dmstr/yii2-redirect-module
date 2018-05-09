@@ -3,6 +3,7 @@
 namespace dmstr\modules\redirect\models\base;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the base-model class for table "dmstr_redirect".
@@ -17,7 +18,7 @@ use Yii;
  * @property string $created_at
  * @property string $updated_at
  */
-class Redirect extends \dmstr\modules\redirect\models\ActiveRecord
+class Redirect extends ActiveRecord
 {
 
     /**
