@@ -7,8 +7,9 @@
  * file that was distributed with this source code.
  */
 
-namespace dmstr\modules\redirect\providers;
+namespace dmstr\modules\redirect;
 
+use schmunk42\giiant\commands\BatchController;
 use schmunk42\giiant\generators\crud\callbacks\base\Callback;
 
 // include basic giiant callback providers
@@ -19,41 +20,18 @@ $columnFormats = [
     '^id|created_at|updated_at' => Callback::false(),
 ];
 
-$domainInputsCssId = 'domain-inputs';
-$pathInputsCssId = 'domain-inputs';
-
 \Yii::$container->set(
     'schmunk42\giiant\crud\providers\CallbackProvider',
     [
         'activeFields' => $activeFields,
         'columnFormats' => $columnFormats,
         'appendActiveFields' => [
-            'type' => function ($model, $attribute) {
-                return <<<PHP
-<?php 
-\$this->registerJs("$('input[name=\"{\$model->formName()}[{$attribute}]\"]').on('change',function() { $('#domain-inputs,#path-inputs').toggleClass('hidden');});");
-\$model->{$attribute} = \$model::TYPE_DOMAIN;
-?>
-PHP;
-
-            },
             'status_code' => function ($model, $attribute) {
                 return <<<PHP
 <?php \$model->{$attribute} = \$model::STATUS_MOVED_PERMANENTLY?>
 PHP;
 
             },
-            'from_domain' => function () {
-                return "<span id='{$domainInputsCssId}'>";
-            },
-            'from_path' => function () {
-                return "<span id='{$pathInputsCssId}' class='hidden'>";
-            }
-        ],
-        'prependActiveFields' => [
-            'to_domain|to_path' => function () {
-                return '</span>';
-            }
         ]
     ]
 );
@@ -63,16 +41,36 @@ PHP;
     'schmunk42\giiant\crud\providers\OptsProvider',
     [
         'columnNames' => [
-            'status_code' => 'radio',
-            'type' => 'radio',
+            'status_code' => 'radio'
         ]
     ]
 );
-\Yii::$container->set(
-    'dmstr\modules\redirect\providers',
-    [
-        'columnNames' => [
-            '' => '',
+
+return [
+    'controllerMap' => [
+        'redirect:crud' => [
+            'class' => BatchController::class,
+            'overwrite' => true,
+            'interactive' => false,
+            'modelNamespace' => __NAMESPACE__ . '\\models',
+            'modelQueryNamespace' => __NAMESPACE__ . '\\models\\query',
+            'crudControllerNamespace' => __NAMESPACE__ . '\\controllers',
+            'crudSearchModelNamespace' => __NAMESPACE__ . '\\models\\search',
+            'crudViewPath' => '@' . str_replace('\\', '/', __NAMESPACE__) . '/views',
+            'crudPathPrefix' => '/redirects/redirect',
+            'crudTidyOutput' => true,
+            'crudAccessFilter' => true,
+            'crudProviders' => [
+                CallbackProvider::class,
+                OptsProvider::class,
+                RelationProvider::class,
+            ],
+            'crudMessageCategory' => 'redirect',
+            'modelMessageCategory' => 'redirect',
+            'tablePrefix' => 'dmstr_',
+            'tables' => [
+                'dmstr_redirect'
+            ]
         ]
     ]
-);
+];

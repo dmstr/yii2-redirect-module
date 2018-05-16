@@ -77,11 +77,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'contentOptions' => ['nowrap'=>'nowrap']
         ],
 			'status_code',
-			'type',
-			'from_domain',
-			'to_domain',
-			'from_path',
-			'to_path',
+			'source',
+			'destination',
                 ],
             ]); ?>
                 </div>

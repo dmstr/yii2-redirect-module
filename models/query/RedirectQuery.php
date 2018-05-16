@@ -9,12 +9,6 @@ namespace dmstr\modules\redirect\models\query;
  */
 class RedirectQuery extends \yii\db\ActiveQuery
 {
-    /*public function active()
-    {
-        $this->andWhere('[[status]]=1');
-        return $this;
-    }*/
-
     /**
      * @inheritdoc
      * @return \dmstr\modules\redirect\models\Redirect[]|array

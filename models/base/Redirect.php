@@ -9,11 +9,8 @@ use yii\db\ActiveRecord;
  * This is the base-model class for table "dmstr_redirect".
  *
  * @property integer $id
- * @property string $type
- * @property string $from_domain
- * @property string $to_domain
- * @property string $from_path
- * @property string $to_path
+ * @property string $source
+ * @property string $destination
  * @property integer $status_code
  * @property string $created_at
  * @property string $updated_at
@@ -35,11 +32,11 @@ class Redirect extends ActiveRecord
     public function rules()
     {
         return [
-            [['status_code'], 'required'],
+            [['status_code','source','destination'], 'required'],
+            [['source'], 'unique'],
             [['status_code'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
-            [['type'], 'string', 'max' => 10],
-            [['from_domain', 'to_domain', 'from_path', 'to_path'], 'string', 'max' => 255]
+            [['source', 'destination'], 'string', 'max' => 255]
         ];
     }
 
@@ -50,11 +47,8 @@ class Redirect extends ActiveRecord
     {
         return [
             'id' => Yii::t('redirect', 'ID'),
-            'type' => Yii::t('redirect', 'Type'),
-            'from_domain' => Yii::t('redirect', 'From Domain'),
-            'to_domain' => Yii::t('redirect', 'To Domain'),
-            'from_path' => Yii::t('redirect', 'From Path'),
-            'to_path' => Yii::t('redirect', 'To Path'),
+            'source' => Yii::t('redirect', 'Source'),
+            'destination' => Yii::t('redirect', 'Destination'),
             'status_code' => Yii::t('redirect', 'Status Code'),
             'created_at' => Yii::t('redirect', 'Created At'),
             'updated_at' => Yii::t('redirect', 'Updated At'),

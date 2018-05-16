@@ -8,17 +8,22 @@ use yii\db\Expression;
 
 /**
  * This is the model class for table "dmstr_redirect".
+ *
  */
 class Redirect extends BaseRedirect
 {
-    const TYPE_DOMAIN = 'domain';
-    const TYPE_PATH = 'path';
 
+    // HTTP CODES
+    /**
+     * If you want to add new ones, add them here as constants & to the optsStatusCode method
+    */
     const STATUS_MOVED_PERMANENTLY = 301;
     const STATUS_FOUND = 302;
 
     /**
      * @return array
+     *
+     * - timestamp: Update created_at and updated_at on creation or update
      */
     public function behaviors()
     {
@@ -30,46 +35,14 @@ class Redirect extends BaseRedirect
         return $behaviors;
     }
 
-
     /**
-     * @return array
-     */
-    public function scenarios()
-    {
-        $scenarios = parent::scenarios();
-        $scenarios['crud'] = [
-            'type',
-            'from_domain',
-            'to_domain',
-            'from_path',
-            'to_path',
-            'status_code'
-        ];
-        return $scenarios;
-    }
-
-    /**
-     * @return array
+     * @return array Set of defined rules
      */
     public function rules()
     {
         $rules = parent::rules();
-        $rules[] = [['type'], 'required']; // type is required
-        $rules[] = [['from_domain', 'to_domain'], 'required', 'when' => function ($model) {
-            return $model->type === $model::TYPE_DOMAIN;
-        }, 'enableClientValidation' => false]; // require from & to domain if type is set
-        $rules[] = [['from_path', 'to_path'], 'required', 'when' => function ($model) {
-            return $model->type === $model::TYPE_PATH;
-        }, 'enableClientValidation' => false]; // require from & to domain if type is set
+        $rules[] = ['destination', 'compare', 'compareAttribute' => 'source','operator' => '!='];
         return $rules;
-    }
-
-    public static function optsType()
-    {
-        return [
-            self::TYPE_DOMAIN => \Yii::t('redirect', 'Domain redirect'),
-            self::TYPE_PATH => \Yii::t('redirect', 'Path redirect'),
-        ];
     }
 
     public static function optsStatusCode()
@@ -78,5 +51,13 @@ class Redirect extends BaseRedirect
             self::STATUS_MOVED_PERMANENTLY => \Yii::t('redirect', 'Moved permanently (301)'),
             self::STATUS_FOUND => \Yii::t('redirect', 'Moved temporary (302)')
         ];
+    }
+
+    /**
+     * redirect to given destionation with give status code
+     */
+    public function doRedirect()
+    {
+        header('Location: ' . $this->destination, true, $this->status_code);
     }
 }

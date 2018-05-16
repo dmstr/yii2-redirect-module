@@ -34,20 +34,8 @@ use yii\helpers\Html;
                 <?php $this->beginBlock('main'); ?>
 
                 <p>
-                    <?php
-                    $this->registerJs("$('input[name=\"{$model->formName()}[type]\"]').on('change',function() { $('#domain-inputs,#path-inputs').toggleClass('hidden');});");
-                    $model->type = $model::TYPE_DOMAIN;
-                    ?>
-                    <?= $form->field($model, 'type')->radioList(dmstr\modules\redirect\models\Redirect::optstype()); ?>
-                    <span id='domain-inputs'>
-                    <?= $form->field($model, 'from_domain')->textInput(['maxlength' => true]) ?>
-                    <?= $form->field($model, 'to_domain')->textInput(['maxlength' => true]) ?>
-                    </span>
-                    <span id='path-inputs' class='hidden'>
-                    <?= $form->field($model, 'from_path')->textInput(['maxlength' => true]) ?>
-                    <?= $form->field($model, 'to_path')->textInput(['maxlength' => true]) ?>
-                     </span>
-                    <?php $model->status_code = $model::STATUS_MOVED_PERMANENTLY ?>
+                    <?= $form->field($model, 'source')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($model, 'destination')->textInput(['maxlength' => true]) ?>
                     <?= $form->field($model, 'status_code')->radioList(
                         dmstr\modules\redirect\models\Redirect::optsstatuscode()
                     ); ?>

@@ -30,55 +30,42 @@ class Module extends \yii\base\Module
     public function init()
     {
         if (is_a(Yii::$app, yii\web\Application::class)) {
+            
+            $pathUrl = '/' . \Yii::$app->request->pathInfo; // url just path of current request
+            $domainUrl = Yii::$app->request->hostInfo . $pathUrl; // url with domain of current request
 
-            $db = Yii::$app->db;
-
-            // Domain redirect
-            $domains = $db->cache(function () {
-                return Redirect::findAll(['type' => Redirect::TYPE_DOMAIN]);
-            });
-            $currentUrl = Yii::$app->request->hostInfo . Yii::$app->request->url; // url of current request
-            foreach ((array)$domains as $domain) {
-                if ($currentUrl === $domain->from_domain) {
-                    self::doRedirectDomain($domain->to_domain, $domain->status_code);
+            /**
+             * @var $redirects Redirect[];
+             * 
+             * - get all redirects
+             * - check if source url is relative 
+             *    true: path redirect
+             *    false: domain redirect
+             * 
+             * - check if source and compare urls match
+             * - do redirect to destionation
+             */
+            foreach (Redirect::find()->all() as $redirect) {
+                if (Url::isRelative($redirect->source)) {
+                    $compareUrl = $pathUrl;
+                    try {
+                        $sourceUrl = Url::to([$redirect->source]);
+                    } catch (\Exception $e) {
+                        Yii::trace($e->getMessage(),'redirect');
+                        $sourceUrl = null;
+                    }
+                } else {
+                    $compareUrl = $domainUrl;
+                    $sourceUrl = $redirect->source;
                 }
-            }
 
-            // Path redirect
-            $paths = $db->cache(function () {
-                return Redirect::findAll(['type' => Redirect::TYPE_PATH]);
-            });
-            $pathInfo = '/' . \Yii::$app->request->pathInfo; // path of current request
-            foreach ((array)$paths as $path) {
-                if ($pathInfo === $path->from_path) {
-                    self::doRedirectPath($path->to_path, $path->status_code);
+                if ($sourceUrl === $compareUrl) {
+                    $redirect->doRedirect();
+                    exit;
                 }
             }
         }
         parent::init();
     }
 
-    /**
-     * @param $to
-     * @param $statusCode
-     */
-    protected function doRedirectDomain($to, $statusCode)
-    {
-        self::doRedirect($to, $statusCode);
-    }
-
-    /**
-     * @param $to
-     * @param $statusCode
-     */
-    protected function doRedirectPath($to, $statusCode)
-    {
-        self::doRedirect(Url::to($to), $statusCode);
-    }
-
-    protected function doRedirect($url, $statusCode)
-    {
-        header('Location: ' . $url, true, $statusCode);
-        exit;
-    }
 }

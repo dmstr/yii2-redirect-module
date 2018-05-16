@@ -53,11 +53,8 @@ $this->params['breadcrumbs'][] = Yii::t('redirect', 'View');
     'model' => $model,
     'attributes' => [
             'id',
-        'type',
-        'from_domain',
-        'to_domain',
-        'from_path',
-        'to_path',
+        'source',
+        'destination',
         'status_code',
         'created_at',
         'updated_at',

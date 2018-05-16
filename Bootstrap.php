@@ -43,6 +43,8 @@ class Bootstrap implements BootstrapInterface
             $app->bootstrap[] = 'redirects';
         }
 
+        $app->setAliases(['@dmstr/modules/redirect' => '@dmstr/modules/redirect/vendor/dmstr/yii2-redirect-module']);
+
         $app->params['yii.migrations'][] = '@dmstr/modules/redirect/migrations';
     }
 }
