@@ -10,14 +10,11 @@ use yii\grid\GridView;
 * @var dmstr\modules\redirect\models\search\Redirect $searchModel
 */
 
-    $this->title = 'Redirects';
+$this->title = 'Redirects';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="giiant-crud redirect-index">
-
-    <?php //     echo $this->render('_search', ['model' =>$searchModel]);
-    ?>
 
     <div class="clearfix">
         <p class="pull-left">
@@ -80,11 +77,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'contentOptions' => ['nowrap'=>'nowrap']
         ],
 			'status_code',
-			'type',
-			'from_domain',
-			'to_domain',
-			'from_path',
-			'to_path',
+			'source',
+			'destination',
                 ],
             ]); ?>
                 </div>
