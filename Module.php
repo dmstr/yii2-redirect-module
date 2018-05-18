@@ -12,6 +12,7 @@ namespace dmstr\modules\redirect;
 use dmstr\modules\redirect\models\Redirect;
 use Yii;
 use yii\helpers\Url;
+use yii\web\Application;
 
 /**
  *
@@ -29,7 +30,8 @@ class Module extends \yii\base\Module
      */
     public function init()
     {
-        if (getenv('YII_ENV') !== 'test') {
+
+        if (getenv('YII_ENV') !== 'test' && Yii::$app instanceof \yii\web\Application) {
             $pathUrl = '/' . \Yii::$app->request->pathInfo; // url just path of current request
             $domainUrl = Yii::$app->request->hostInfo . $pathUrl; // url with domain of current request
 
