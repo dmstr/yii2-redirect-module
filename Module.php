@@ -29,8 +29,7 @@ class Module extends \yii\base\Module
      */
     public function init()
     {
-        if (is_a(Yii::$app, yii\web\Application::class)) {
-            
+        if (getenv('YII_ENV') !== 'test') {
             $pathUrl = '/' . \Yii::$app->request->pathInfo; // url just path of current request
             $domainUrl = Yii::$app->request->hostInfo . $pathUrl; // url with domain of current request
 
