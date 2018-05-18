@@ -31,7 +31,7 @@ class Bootstrap implements BootstrapInterface
      */
     public function bootstrap($app)
     {
-        if (!\Yii::$app->hasModule('redirects')) {
+        if (!\Yii::$app->hasModule('redirects') && getenv('YII_ENV_TEST') !== 'test') {
 
             $app->setModule(
                 'redirects',
