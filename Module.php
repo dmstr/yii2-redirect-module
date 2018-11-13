@@ -10,8 +10,9 @@ namespace dmstr\modules\redirect;
 
 use dmstr\modules\redirect\models\Redirect;
 use Yii;
+use yii\caching\TagDependency;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
-use yii\web\HttpException;
 
 class Module extends \yii\base\Module
 {
@@ -54,21 +55,25 @@ class Module extends \yii\base\Module
         // check if we are NOT in a cli process, otherwise it's not possible to determine the $app->request reliably
         if (php_sapi_name() !== 'cli' && Yii::$app instanceof \yii\web\Application) {
 
-            $this->domainRedirects = Redirect::findAll(['type' => self::TYPE_DOMAIN]);
-            $this->pathRedirects = Redirect::findAll(['type' => self::TYPE_PATH]);
+            $redirects =  Redirect::find()->cache(true, new TagDependency(['tags' => 'redirects']))->all();
+
+            $indexedRedirects = ArrayHelper::index($redirects,null, ['type']);
+
+            $this->domainRedirects = $indexedRedirects[self::TYPE_DOMAIN] ?? [];
+            $this->pathRedirects = $indexedRedirects[self::TYPE_PATH] ?? [];
 
             // Domain redirect
             foreach ($this->domainRedirects as $domain) {
 
-                if (\Yii::$app->request->hostInfo == $domain->from_domain) {
-                    self::doRedirectDomain($domain->to_domain, $domain->status_code);
+                if (\Yii::$app->request->hostInfo === $domain->from_domain) {
+                    $this->doRedirectDomain($domain->to_domain, $domain->status_code);
                 }
             }
 
             // Path redirect
             foreach ($this->pathRedirects as $path) {
-                if ('/'.\Yii::$app->request->pathInfo == $path->from_path) {
-                    self::doRedirectPath($path->to_path, $path->status_code);
+                if ('/'.\Yii::$app->request->pathInfo === $path->from_path) {
+                    $this->doRedirectPath($path->to_path, $path->status_code);
                 }
             }
         }
