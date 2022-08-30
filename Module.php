@@ -36,6 +36,13 @@ class Module extends \yii\base\Module
      * @var string
      */
     public $messageCatalogue = 'app';
+
+    /**
+     * should $src check be made caseSensitive?
+     * default = true (BC)
+     * @var bool
+     */
+    public $caseSensitive = true;
     /**
      * @var array
      */
@@ -65,18 +72,35 @@ class Module extends \yii\base\Module
             // Domain redirect
             foreach ($this->domainRedirects as $domain) {
 
-                if (\Yii::$app->request->hostInfo === $domain->from_domain) {
+                if ($this->compare(\Yii::$app->request->hostInfo, $domain->from_domain)) {
                     $this->doRedirectDomain($domain->to_domain, $domain->status_code);
                 }
             }
 
             // Path redirect
             foreach ($this->pathRedirects as $path) {
-                if ('/'.\Yii::$app->request->pathInfo === $path->from_path) {
+                if ($this->compare('/'.\Yii::$app->request->pathInfo, $path->from_path)) {
                     $this->doRedirectPath($path->to_path, $path->status_code);
                 }
             }
         }
+    }
+
+    /**
+     * compare 2 strings according to self::caseSensitive property
+     *
+     * @param $a
+     * @param $b
+     *
+     * @return bool
+     */
+    protected function compare($a, $b)
+    {
+       if ($this->caseSensitive === false) {
+           $a = strtolower($a);
+           $b = strtolower($b);
+       }
+        return $a === $b;
     }
 
     /**
